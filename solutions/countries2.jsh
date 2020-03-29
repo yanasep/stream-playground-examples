@@ -1,3 +1,6 @@
+import countries.*;
+var countries = new Countries().getAll();
+
 // 1. Returns whether there is at least one country with the word island in its name ignoring case.
 countries.stream().
     anyMatch(c -> c.getName().toLowerCase().contains("island"));
