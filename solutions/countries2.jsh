@@ -21,14 +21,13 @@ countries.stream().
 // 4. Prints the populations of the first ten least populous countries (required intermediate operation: stream, limit)).
 countries.stream().
     mapToLong(Country::getPopulation).
-    boxed().
-    sorted(Comparator.reverseOrder()).
+    sorted().
     limit(10).
     forEach(System.out::println);
 
 // 5. Prints the names of the first ten least populous countries (required intermediate operation: sorted, limit)).
 countries.stream().
-    sorted(Comparator.comparingLong(c -> -c.getPopulation())).
+    sorted(Comparator.comparingLong(Country::getPopulation)).
     limit(10).
     map(Country::getName).
     forEach(System.out::println);
@@ -40,7 +39,8 @@ countries.stream().
 
 // 7. Prints the names of countries in the ascending order of the number of timezones.
 countries.stream().
-    sorted(Comparator.comparingInt(c -> c.getTimezones().size())).map(Country::getName).
+    sorted(Comparator.comparingInt(c -> c.getTimezones().size())).
+    map(Country::getName).
     forEach(System.out::println);
 
 // 8. Prints the number of timezones for each country in the form name: population, in the ascending order of the number of timezones.
@@ -82,7 +82,8 @@ countries.stream().
 // 14.Returns the largest country with non-null area.
 countries.stream().
     filter(c -> c.getArea() != null).
-    max(Comparator.comparing(Country::getArea));
+    max(Comparator.comparing(Country::getArea)).
+    get();
 
 // 15.Prints the names of countries with a non-null area below 10 (requires the use of BigDecimal.TEN).
 countries.stream().
